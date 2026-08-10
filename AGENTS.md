@@ -596,4 +596,20 @@ Before opening or merging an integration PR, confirm the following:
 
 ---
 
+## Agent skills
+
+### Issue tracker
+
+Issues live as GitHub issues in `DigitalWink/spec-kit-for-human-team`, driven by the `gh` CLI. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+The five canonical triage roles, each label string equal to its name: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context — one `CONTEXT.md` and one `docs/adr/` at the repo root. See `docs/agents/domain.md`.
+
+---
+
 *This documentation should be updated whenever new integrations are added to maintain accuracy and completeness.*
