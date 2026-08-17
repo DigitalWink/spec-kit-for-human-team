@@ -12,6 +12,7 @@ from pathlib import Path
 import pytest
 
 from tests.conftest import requires_bash
+from tests.parity_helpers import install_composition_stack
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 COMMON_SH = PROJECT_ROOT / "scripts" / "bash" / "common.sh"
@@ -134,6 +135,87 @@ def _normalize_help_text(text: str) -> str:
         "check-prerequisites.sh", "check_prerequisites.py"
     )
     return "\n".join("" if not line.strip() else line for line in normalized.split("\n"))
+
+
+@requires_bash
+@pytest.mark.parametrize("missing", [False, True], ids=["composed", "missing"])
+def test_all_variants_resolve_requested_template(
+    prereq_repo: Path, missing: bool
+) -> None:
+    _write_feature_json(prereq_repo)
+    feature = prereq_repo / "specs" / "001-my-feature"
+    feature.mkdir(parents=True)
+    (feature / "plan.md").write_text("# Plan\n", encoding="utf-8")
+    template_name = "missing-template" if missing else "checklist-template"
+    expected = install_composition_stack(
+        prereq_repo, "checklist-template", "# Checklist\n"
+    )
+
+    results = [
+        _run(
+            _bash_cmd(prereq_repo, "--json", "--template", template_name),
+            prereq_repo,
+        ),
+        _run(
+            _py_cmd(prereq_repo, "--json", "--template", template_name),
+            prereq_repo,
+        ),
+    ]
+    if HAS_PWSH or _WINDOWS_POWERSHELL:
+        results.append(
+            _run(
+                _ps_cmd(prereq_repo, "-Json", "-Template", template_name),
+                prereq_repo,
+            )
+        )
+
+    expected_status = 1 if missing else 0
+    assert all(result.returncode == expected_status for result in results)
+    if missing:
+        assert all(result.stdout == "" for result in results)
+    else:
+        assert all(
+            _json_stdout(result)["TEMPLATE_CONTENT"] == expected
+            for result in results
+        )
+
+
+@requires_bash
+@pytest.mark.parametrize("missing", [False, True], ids=["composed", "missing"])
+def test_all_variants_validate_requested_template_in_text_mode(
+    prereq_repo: Path, missing: bool
+) -> None:
+    _write_feature_json(prereq_repo)
+    feature = prereq_repo / "specs" / "001-my-feature"
+    feature.mkdir(parents=True)
+    (feature / "plan.md").write_text("# Plan\n", encoding="utf-8")
+    template_name = "missing-template" if missing else "checklist-template"
+    install_composition_stack(
+        prereq_repo, "checklist-template", "# Checklist\n"
+    )
+
+    results = [
+        _run(
+            _bash_cmd(prereq_repo, "--template", template_name),
+            prereq_repo,
+        ),
+        _run(
+            _py_cmd(prereq_repo, "--template", template_name),
+            prereq_repo,
+        ),
+    ]
+    if HAS_PWSH or _WINDOWS_POWERSHELL:
+        results.append(
+            _run(
+                _ps_cmd(prereq_repo, "-Template", template_name),
+                prereq_repo,
+            )
+        )
+
+    expected_status = 1 if missing else 0
+    assert all(result.returncode == expected_status for result in results)
+    if missing:
+        assert all(result.stdout == "" for result in results)
 
 
 @requires_bash
@@ -482,3 +564,38 @@ class TestGetInvokeSeparatorTolerance:
             "integration_settings": {"droid": {"invoke_separator": "-"}},
         })
         assert common.get_invoke_separator(self._repo(tmp_path, body)) == "-"
+
+
+@pytest.mark.skipif(
+    not (HAS_PWSH or _WINDOWS_POWERSHELL), reason="no PowerShell available"
+)
+def test_powershell_text_output_lists_available_docs(prereq_repo: Path) -> None:
+    """Text mode must print a status line per document, like the twins.
+
+    `Test-FileExists` / `Test-DirHasFiles` report their line with `Write-Output`
+    and ALSO `return $true/$false`, both on the Success stream. The callers piped
+    the whole call to `| Out-Null` to discard the boolean, which discarded the
+    report line too — so `AVAILABLE_DOCS:` was emitted with nothing under it
+    while the bash and Python twins list every document.
+    """
+    feat = prereq_repo / "specs" / "001-my-feature"
+    feat.mkdir(parents=True)
+    (feat / "plan.md").write_text("# plan\n", encoding="utf-8")
+    (feat / "research.md").write_text("# research\n", encoding="utf-8")
+    _write_feature_json(prereq_repo)
+
+    ps = _run(_ps_cmd(prereq_repo, "-IncludeTasks"), prereq_repo)
+
+    assert ps.returncode == 0, ps.stderr
+    assert "AVAILABLE_DOCS:" in ps.stdout
+    for doc in (
+        "research.md",
+        "data-model.md",
+        "contracts/",
+        "quickstart.md",
+        "tasks.md",
+    ):
+        assert doc in ps.stdout, (doc, ps.stdout)
+    # The existing file reports [OK], the missing ones [FAIL].
+    assert "[OK] research.md" in _normalize_status_text(ps.stdout), ps.stdout
+    assert "[FAIL] quickstart.md" in _normalize_status_text(ps.stdout), ps.stdout

@@ -2,6 +2,82 @@
 
 <!-- insert new changelog below this comment -->
 
+## [0.16.4] - 2026-08-14
+
+### Changed
+
+- Add SpecAssay preset to community catalog (#4123)
+- Update Intake Authoring Governance preset to v0.3.1 (#4121)
+- Update Superspec extension to v1.0.2 (#4120)
+- fix(taskstoissues): widen task-ID regex to match IDs longer than 3 digits (#4101)
+- Add Architecture Governance extension to community catalog (#4122)
+- fix(workflows): validate non-string step types (#4111)
+- Harden community submission workflow output allowlists (#4103)
+- chore(deps): bump github/codeql-action (init + analyze) from 4.37.5 to 4.37.6 (#4114)
+- Add SpecAssay Check extension to community catalog (#4113)
+- fix(integrations): dispatch goose commands via `goose run` (#2416) (#3781)
+- fix(powershell): stop Out-Null swallowing the AVAILABLE_DOCS status lines (#3891)
+- fix: remove TOCTOU race in RunState.load (#3839)
+- fix: decode the zipped manifest as UTF-8 before parsing (#3958)
+- Update Agent Parity Governance preset to v0.4.2 (#4110)
+- fix: log progress tracker refresh errors instead of silently swallowing (#3975)
+- [extension] Add SpecJudge extension to community catalog (#4079)
+- fix(bundler): read the authoritative `default_integration` field, not only its legacy aliases (#3880)
+- fix(auth): treat exact host patterns literally (#4108)
+- feat: add Mistral Vibe integration with Claude parity (#4075)
+- [extension] Add spec-kit-atlas extension to community catalog (#4105)
+- chore: release 0.16.3, begin 0.16.4.dev0 development (#4107)
+
+## [0.16.3] - 2026-08-13
+
+### Changed
+
+- fix: narrow bare except Exception in VS Code settings merge (#3844)
+- feat(presets): list presets in resolution/precedence order (#4086) (#4104)
+- Fix: scaffold self-contained namespaced preset commands (#4076) (#4082)
+- Update Cross-Platform Governance preset to v0.2.2 (#4080)
+- fix(bundler): treat a blank active integration as indeterminate in FR-019 (#3886)
+- Integrate Junie with dot-to-hyphen behavior and command formatting  (#4073)
+- Update A11Y Governance preset to v0.4.3 (#4074)
+- Fix Alquimia argument hints after folded descriptions (#4063)
+- fix: use bounded read for bundle download HTTP responses (#3764)
+- Update iSAQB Architecture Governance preset to v0.2.2 (#4056)
+- fix(claude): make argument-hint injection fold-aware for long descriptions (#4045)
+- Add SpecKit Grill Me extension to community catalog (#4052)
+- Update Architecture Governance preset to v0.5.2 (#4050)
+- Remove auto-assign from catalog submission workflow (#4054)
+- docs: clarify example spec guidance (#4048)
+- Clarify custom checklist ownership and lifecycle (#4028)
+- Update Archive Extension to v1.2.2 (#4053)
+- Update Security Governance preset to v0.6.2 (#4040)
+- docs: clarify maintainer applies submission label during triage (#4041)
+- chore: release 0.16.2, begin 0.16.3.dev0 development (#4038)
+
+## [0.16.2] - 2026-08-10
+
+### Changed
+
+- Add Command Code integration to spec-kit (#4019)
+- fix(workflows): strip a resolved condition before the true/false check (#3883)
+- fix(workflows): guard a non-string overlay edit 'operation' (#3881)
+- fix: bound response read in integration catalog fetch (#3818)
+- Fix bug-test Python dependency provisioning (#4030)
+- fix(bundle): escape Rich markup in bundle CLI error and status output (#4023)
+- fix(presets): skip an unreadable restore source in `preset remove` (#4020)
+- Add Keel Discovery extension to community catalog (#4035)
+- fix: show error details in preset catalog config read failure (#3840)
+- Update Reconcile Extension to v1.1.0 (#4034)
+- Add Model Routing Governance preset to community catalog (#4033)
+- fix: use missing_ok=True in integration JSON removal (#3846)
+- fix: use missing_ok=True in extension cache clear (#3845)
+- fix(extensions): reject duplicate provides.templates/scripts names (#4016)
+- feat(presets): resolve constitution templates at command time (#3984)
+- [bug-fix] Fix preset-wrap-drops-argument-hint: inherit argument-hint from core template (#3996)
+- docs: document installing specify-cli from a custom package index (#4032)
+- feat(extensions): accept provides.templates and provides.scripts in manifest (#4012)
+- fix(presets): treat an unreadable core template as missing (#3961)
+- chore: release 0.16.1, begin 0.16.2.dev0 development (#4014)
+
 ## [0.16.1] - 2026-08-07
 
 ### Changed

@@ -577,8 +577,13 @@ class ExtensionManifest:
         behavior for extension layers in presets/__init__.py). A present
         'strategy' key is rejected rather than silently ignored, so an author
         who copies a preset-style entry gets a clear error instead of a
-        silently-dropped field.
+        silently-dropped field. Duplicate names within a section are also
+        rejected: the resolver returns the first matching entry by name
+        (``PresetResolver._extension_manifest_declared_template``), so a
+        later duplicate would be silently unreachable while still being
+        exposed by ``ExtensionManifest.templates``/``.scripts``.
         """
+        seen_names: set[str] = set()
         for entry in entries:
             if not isinstance(entry, dict):
                 raise ValidationError(
@@ -597,6 +602,11 @@ class ExtensionManifest:
                     f"Invalid {singular} name '{name}': "
                     "must be lowercase alphanumeric with hyphens only"
                 )
+            if name in seen_names:
+                raise ValidationError(
+                    f"Duplicate {singular} name '{name}' in 'provides.{section}'"
+                )
+            seen_names.add(name)
 
             file_value = entry["file"]
             reason = relative_extension_path_violation(file_value)
@@ -745,6 +755,13 @@ class ExtensionRegistry:
         if not self.registry_path.exists():
             return {"schema_version": self.SCHEMA_VERSION, "extensions": {}}
 
+        # A non-regular file (e.g. a directory at the registry path) is not a
+        # readable registry. Recover to empty so construction — used by the
+        # install/enable/disable flows — does not crash. Resolution paths that
+        # must fail closed consult is_corrupt() instead of relying on this.
+        if not self.registry_path.is_file():
+            return {"schema_version": self.SCHEMA_VERSION, "extensions": {}}
+
         try:
             with open(self.registry_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
@@ -763,6 +780,38 @@ class ExtensionRegistry:
             # is deliberately not caught: the data may be intact on disk, and
             # starting fresh would let a later _save() wipe it.
             return {"schema_version": self.SCHEMA_VERSION, "extensions": {}}
+
+    def is_corrupt(self) -> bool:
+        """Report whether an existing registry file is present but unreadable.
+
+        ``_load`` deliberately recovers from a corrupt registry by normalizing
+        it to an empty mapping so install/enable/disable flows keep working.
+        Resolution paths, however, must fail closed: a corrupt registry that
+        normalizes to ``{}`` would otherwise cause every on-disk extension
+        directory to be admitted as an unregistered, enabled extension. This
+        probe lets those callers distinguish "no registry" (safe) from
+        "registry exists but is invalid" (unsafe) without changing recovery
+        behavior. An absent registry returns ``False``; a directory, broken
+        or dangling symlink, non-regular file, unreadable file, non-mapping
+        root, or non-mapping ``extensions`` value returns ``True``.
+        """
+        # os.path.lexists (not Path.exists) so a dangling symlink is detected
+        # rather than followed to a non-existent target and mistaken for an
+        # absent registry — which would reopen the fail-open directory scan.
+        if not os.path.lexists(self.registry_path):
+            return False
+        if not self.registry_path.is_file():
+            return True
+        try:
+            with open(self.registry_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+        except (json.JSONDecodeError, OSError, UnicodeDecodeError):
+            return True
+        if not isinstance(data, dict):
+            return True
+        if "extensions" in data and not isinstance(data["extensions"], dict):
+            return True
+        return False
 
     def _save(self):
         """Save registry to disk."""
@@ -4663,6 +4712,7 @@ class HookExecutor:
         kimi_skill_mode = selected_ai == "kimi"
         cline_mode = selected_ai == "cline"
         forge_mode = selected_ai == "forge"
+        junie_mode = selected_ai == "junie"
 
         skill_name = self._skill_name_from_command(command_id)
         if dollar_skill_mode and skill_name:
@@ -4677,6 +4727,10 @@ class HookExecutor:
             from ..integrations.forge import format_forge_command_name
 
             return f"/{format_forge_command_name(command_id)}"
+        if junie_mode:
+            from ..integrations.junie import format_junie_command_name
+
+            return f"/{format_junie_command_name(command_id)}"
 
         use_slash = is_slash_skills_agent(selected_ai, ai_skills_enabled)
 
