@@ -23,10 +23,30 @@ Which consumer can observe a violation of a given rule: **plan-visible** (answer
 ### The constitution interview
 
 **Interview**:
-The bounded, inference-first flow that produces a constitution. Brownfield-primary: it infers from the repo, then asks the user to confirm or correct.
+The bounded, inference-first flow that produces a constitution. Brownfield-primary: it infers from the repo, then asks the user to confirm or correct. It runs as a per-area walk.
 
 **Area**:
 One topic the interview probes. **Always-ask** areas run on every project; **conditional** areas run only when a repo signal fires their trigger.
+
+**Per-area walk**:
+The interview's shape: one area at a time, each closed by a single answer before the next appears. Not a whole-document draft reviewed in one pass. Settled in [issue #3](https://github.com/DigitalWink/spec-kit-for-human-team/issues/3).
+_Avoid_: questionnaire, wizard
+
+**Step shape**:
+How one area is presented. **Pre-filled** — a rule inferred from the repo, shown with its gate question and its source. **Menu** — up to five candidate rules, nothing pre-selected. **Cold** — an open question, no candidates. Every shape costs one decision.
+
+**Decision**:
+The interview's budget unit: one area step, closed by one answer. A push-back, a disambiguation, and the correction round are not decisions.
+_Avoid_: question, turn, prompt
+
+**Menu**:
+The step shape used when the repo yields no rule for an area but can still name a fact that says which rules are worth offering. Nothing is pre-selected, and choosing none is a valid answer. A menu candidate never carries a measured set or number.
+
+**Push-back**:
+The interview's single challenge, at most once per area, when a rule the user typed fails the admission test. The user may insist; the rule is then written as they wrote it and the routing table records that no consumer can observe it. A route-out verdict, unlike an admission failure, is not overridable.
+
+**Correction round**:
+The one pass after the constitution is written, where the user can change anything in the assembled document. Further changes need a fresh run in amendment mode.
 
 **Trigger**:
 The repo signal that fires a conditional area. A product-surface fact, never the presence of a tool that would already enforce the rule.
