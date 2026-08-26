@@ -42,6 +42,16 @@ _Avoid_: question, turn, prompt
 **Menu**:
 The step shape used when the repo yields no rule for an area but can still name a fact that says which rules are worth offering. Nothing is pre-selected, and choosing none is a valid answer. A menu candidate never carries a measured set or number.
 
+**Measured set**:
+An enumeration produced from the repo and written inline into the constitution, because no consumer reads the file it came from. Three exist: the runtime dependency set, the surface verb and flag grammar, and the distribution-artifact ceiling — which is a scalar, not a list. A measured set is written as a **declarative sentence** and the obligation refers to it, so the set itself costs no obligations. Settled in [issue #10](https://github.com/DigitalWink/spec-kit-for-human-team/issues/10).
+_Avoid_: inferred list, inventory
+
+**Declared measurement**:
+How a measured set is produced: a named source, a named extraction, and a stated threshold, deterministic and re-runnable. A **declared** set is copied from a manifest that already enumerates it. An **observed** set is derived by search from source that declares its members nowhere, at a stated recurrence threshold. Never model judgment over prose — two runs on the same repo must produce the same set.
+
+**Near-miss band**:
+The members an observed set's recurrence threshold excluded, shown at confirmation so the user can add them back. Labelled *below the threshold, not included*, never *rejected* — they were never candidates. It is what makes reviewing a long set a judgment about one boundary rather than a blind accept.
+
 **Push-back**:
 The interview's single challenge, at most once per area, when a rule the user typed fails the admission test. The user may insist; the rule is then written as they wrote it and the routing table records that no consumer can observe it. A route-out verdict, unlike an admission failure, is not overridable.
 
