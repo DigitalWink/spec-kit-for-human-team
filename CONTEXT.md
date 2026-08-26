@@ -215,3 +215,17 @@ _Avoid_: agent adapter, provider
 
 **Extension**:
 An opt-in add-on that owns behavior the CLI deliberately does not, such as `agent-context` owning the managed section of `CLAUDE.md` and `AGENTS.md`.
+
+### Testing the interview
+
+**Prompt-text invariant**:
+An automated assertion that the shipped wrapper **states** a settled rule — a required string, a required structure, or an arithmetic relation between numbers printed in its own tables. It proves a decision survived the next edit of a several-hundred-line markdown command file. It proves nothing about what an agent does with it. `tests/test_presets.py`'s existing `test_wrapper_uses_core_template_and_propagates` is one. Named so it cannot be mistaken for a behavioral test. Settled in [issue #14](https://github.com/DigitalWink/spec-kit-for-human-team/issues/14).
+_Avoid_: behavioral test, prompt test
+
+**Fixture-validity assertion**:
+An automated assertion that a tree the design **measured against** still has the property that made it a fixture. It never runs the interview. Example: this repo's announced count of 9 decisions holds only while `src/specify_cli/bundler/models/` contains no ORM and the manifest declares no database client. A prompt-text invariant fails when the design is edited; a fixture-validity assertion fails when the repo is. Settled in [issue #14](https://github.com/DigitalWink/spec-kit-for-human-team/issues/14).
+_Avoid_: fixture test, premise check
+
+**Manual behavioral check**:
+The only thing that asserts what an agent executing the interview actually does. A numbered entry in a `TESTING.md`, giving the fixture recipe, the sentence to type at the agent, and the literal lines to look for. `tests/hooks/TESTING.md` is the working precedent. Not collected by pytest, run once per release, never in CI.
+_Avoid_: manual test, smoke test
