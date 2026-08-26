@@ -21,6 +21,10 @@ A point where a consumer can block on a constitution violation. `/plan` fills `#
 The interview's one-search test for whether the plan-time gate exists on this stack: the installed `speckit.plan` command for this agent either carries a `Constitution Check` instruction or it does not. Three outcomes — present, absent, not determined — and the routing table names which. It asks nothing, blocks nothing, and changes no step. Settled in [issue #9](https://github.com/DigitalWink/spec-kit-for-human-team/issues/9).
 _Avoid_: stack check, preset detection
 
+**Sync Impact Report**:
+The HTML comment at the top of the constitution recording what the last run changed — version change, bump rationale, principles and sections added, modified and removed, and what was carried forward. Producer-side bookkeeping: no enforcing consumer reads it. Its shape comes from the command, not the template, which carries none. Exactly one block exists in the file at any time; a run replaces the one it found rather than prepending another.
+_Avoid_: change log (that is the self-review's terminal artifact), impact report
+
 **Tier**:
 Which consumer can observe a violation of a given rule: **plan-visible** (answerable from `plan.md` or `tasks.md`), **converge-visible** (answerable from feature-scoped source), or **human-gate**. Decides admission; never written into the constitution itself.
 
@@ -90,10 +94,32 @@ The report the interview prints after writing the constitution: one line per rou
 The area covering the product's own external surface — command verbs, flag names, endpoint names, output shapes, exit codes, their stability, and the documentation that ships with a change.
 
 **Amendment interview**:
-The short "what changed?" flow that runs when a constitution already exists, instead of authoring one from scratch.
+The short "what changed?" flow that runs when a constitution already exists, instead of authoring one from scratch. The same per-area walk over a set the **user** names rather than one the taxonomy fixes: one cold "what changed?", at most three touched areas, then the bump confirmation. It costs one decision, or three to five. Settled in [issue #6](https://github.com/DigitalWink/spec-kit-for-human-team/issues/6).
+_Avoid_: amendment mode, update flow, re-run
+
+**Amendment predicate**:
+The test that routes a run to the amendment interview instead of authoring, evaluated before the announcement: the live constitution carries all four mandatory anchors, its footer parses, and no `[ALL_CAPS]` token or `TODO(` survives. It reads the **document**, never the provenance sidecar and never a bare file-exists check — a materialized template and a ratified constitution are both files.
+_Avoid_: existing-constitution check, file check
+
+**Materialized scaffold**:
+The constitution `specify init` writes when none exists: the resolved template copied to the live path, with a `.constitution-template.json` provenance sidecar. It is a file, not a constitution, and the amendment predicate routes it to authoring. Not the same as an authored document that happens to have been seeded by a preset.
+_Avoid_: generated constitution, empty constitution, stub
+
+**Touched area**:
+An area the amendment interview walks, because the user named it in step one or accepted it from the set diff. At most three per run; the rest go in the Deferred/Assumed table with a re-run pointer. Every other area is carried forward.
+
+**Set diff**:
+The re-measurement of all three measured sets against what the constitution currently names, shown as rejectable candidates in step one's follow-up. It costs zero decisions. It exists because provenance stays out of the document, so measuring again is the only way to see drift.
+
+**Carried-forward principle**:
+A principle in an area the amendment did not touch. A third state beyond drafted and user-typed — ratified in an earlier run, so every self-review check treats it as user-typed and log-only. Reported as one summary line, never one row per principle.
+_Avoid_: untouched principle, existing principle
+
+**Bump confirmation**:
+The amendment interview's last step, and its counterpart to the Governance confirmation. The flow classifies MAJOR / MINOR / PATCH mechanically from the obligation diff, and the user confirms. Charged as one decision, because the residue — whether an edit clarified a rule or redefined it — is a judgment about intent the repo cannot see.
 
 **Announced count**:
-The exact number of decisions the interview will cost, stated before the first question. Knowable because the scan completes first. Names what it excludes, because follow-up turns are real typing the number does not cover. Settled in [issue #2](https://github.com/DigitalWink/spec-kit-for-human-team/issues/2).
+The exact number of decisions the interview will cost, stated before the first question. Knowable because the scan completes first. Names what it excludes, because follow-up turns are real typing the number does not cover. Settled in [issue #2](https://github.com/DigitalWink/spec-kit-for-human-team/issues/2). The **amendment interview** is the one flow that cannot know it in advance, because the count depends on the user's first answer — so it announces a ceiling, then the exact count once that answer closes. Both name the same exclusions.
 _Avoid_: budget, cap, estimate
 
 **Walk order**:
@@ -116,7 +142,7 @@ What the pre-walk scan may spend: forty file reads and twelve searches, one pass
 The third closing artifact. Records content admitted but unanswered, assumed, or dropped for budget — as against the routing table, which records content **refused**, and the change log, which records content **changed**. Every default that left the document short of what the user might have wanted lands here, reversible in the correction round.
 
 **Write contract**:
-What the write step must emit: the template's mandatory structure, filled with the accepted rule text verbatim, plus the pipeline-fixed Governance block and footer, and nothing else. Owned by the preset that owns the write; the self-review verifies it. Settled in [issue #7](https://github.com/DigitalWink/spec-kit-for-human-team/issues/7).
+What the write step must emit: the template's mandatory structure, filled with the accepted rule text verbatim, plus the pipeline-fixed Governance block and footer, and nothing else. Owned by the preset that owns the write; the self-review verifies it. Settled in [issue #7](https://github.com/DigitalWink/spec-kit-for-human-team/issues/7). It governs what this flow may **emit**; it never defines what a valid constitution **is** — a ratified document may legally carry a preamble, extra sections and rationale paragraphs the contract would not have written.
 
 **Self-review**:
 The one pass over the assembled draft, before the single write. It checks the interview's own assembly against the write contract — it never re-judges a rule the user accepted. On a well-formed run it changes nothing.
