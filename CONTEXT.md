@@ -71,6 +71,29 @@ The area covering the product's own external surface — command verbs, flag nam
 **Amendment interview**:
 The short "what changed?" flow that runs when a constitution already exists, instead of authoring one from scratch.
 
+**Announced count**:
+The exact number of decisions the interview will cost, stated before the first question. Knowable because the scan completes first. Names what it excludes, because follow-up turns are real typing the number does not cover. Settled in [issue #2](https://github.com/DigitalWink/spec-kit-for-human-team/issues/2).
+_Avoid_: budget, cap, estimate
+
+**Walk order**:
+The fixed sequence of areas. Derived from one-way feeds — an area whose answer can invalidate an earlier rule runs before it — not from impact or attention.
+
+**Satisficing collapse**:
+The escape hatch. After three consecutive verbatim accepts, the fired conditionals not yet asked are presented as one batch summary instead of separate steps. It saves round-trips, never decisions: each covered area is still charged.
+
+**Obligation**:
+One MUST, MUST NOT, or SHOULD clause, counting each semicolon-separated sub-rule separately. The unit the document is sized in — a principle count hides it.
+_Avoid_: rule, clause, instruction
+
+**Obligation quota**:
+The per-area ceiling on obligations: three for an always-ask area, four for irreversible operations, two for a fired conditional. Enforced at draft time, before the user sees the rule. A rule the user typed is exempt.
+
+**Scan budget**:
+What the pre-walk scan may spend: forty file reads and twelve searches, one pass. Triggers are resolved first, because an unevaluated trigger changes the announced count.
+
+**Deferred/Assumed table**:
+The third closing artifact. Records content admitted but unanswered, assumed, or dropped for budget — as against the routing table, which records content refused. Every default the interview applies lands here, reversible in the correction round.
+
 ### Packaging
 
 **Preset**:
