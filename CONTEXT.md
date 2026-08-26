@@ -92,7 +92,28 @@ The per-area ceiling on obligations: three for an always-ask area, four for irre
 What the pre-walk scan may spend: forty file reads and twelve searches, one pass. Triggers are resolved first, because an unevaluated trigger changes the announced count.
 
 **Deferred/Assumed table**:
-The third closing artifact. Records content admitted but unanswered, assumed, or dropped for budget — as against the routing table, which records content refused. Every default the interview applies lands here, reversible in the correction round.
+The third closing artifact. Records content admitted but unanswered, assumed, or dropped for budget — as against the routing table, which records content **refused**, and the change log, which records content **changed**. Every default that left the document short of what the user might have wanted lands here, reversible in the correction round.
+
+**Write contract**:
+What the write step must emit: the template's mandatory structure, filled with the accepted rule text verbatim, plus the pipeline-fixed Governance block and footer, and nothing else. Owned by the preset that owns the write; the self-review verifies it. Settled in [issue #7](https://github.com/DigitalWink/spec-kit-for-human-team/issues/7).
+
+**Self-review**:
+The one pass over the assembled draft, before the single write. It checks the interview's own assembly against the write contract — it never re-judges a rule the user accepted. On a well-formed run it changes nothing.
+_Avoid_: review, validation, QA pass
+
+**Self-review check**:
+One check inside that pass. Five exist: structural conformance, body fidelity, the accounting line, no-evidence rows, and overlap. Two act; three only measure. A self-review check never asks the user anything — it applies a stated default and logs it.
+_Avoid_: quality check
+
+**Fidelity**:
+What the self-review restores. Fidelity is to the content the user accepted and to the template's structure. For text the user typed, fidelity is **verbatim**, so every check on it is log-only.
+
+**User-typed**:
+Any characters the user typed — including an edit of a pre-filled rule, and a single clause inside a body that also holds drafted clauses. Per clause, never per principle.
+
+**Change log**:
+The closing artifact that records what the self-review changed. Terminal output only, never written into the constitution. Prints even when nothing changed.
+_Avoid_: report, diff, summary
 
 ### Packaging
 
