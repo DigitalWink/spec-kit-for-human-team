@@ -45,11 +45,23 @@ The interview's shape: one area at a time, each closed by a single answer before
 _Avoid_: questionnaire, wizard
 
 **Step shape**:
-How one area is presented. **Pre-filled** — a rule inferred from the repo, shown with its gate question and its source. **Menu** — up to five candidate rules, nothing pre-selected. **Cold** — an open question, no candidates. Every shape costs one decision.
+How one area is presented. **Pre-filled** — a rule inferred from the repo, shown with its gate question and its source. **Menu** — up to five candidate rules, nothing pre-selected. **Cold** — an open question, no candidates. Every shape costs one decision, and every shape ends in a prompt line. A step carries **either** a gate question or a *why it matters* sentence, never both and never neither: the two fill one slot, and the gate question is the stronger filler wherever a rule already exists.
+
+**Gate question**:
+The rule restated as a yes/no question about one specific implementation plan — what the rule will do to the user on every future plan. It is a by-product of the admission test's gate-restatement test, so it costs nothing to surface. Printed on a pre-filled step and for a menu's first rung; never written into the constitution, where the principle body is the accepted rule text alone.
+_Avoid_: checkbox (that is what the plan fills), check, validation
+
+**Prompt line**:
+The sentence that closes a step. It names **every** legal reply and no illegal one, which is what makes an affordance real rather than decorative — a set inventory the user is never told they can `drop 7, 12` from is a blind accept. A closed set of seven: one per step shape, a wider one for each of the two inventory-bearing steps and the scalar step, plus Governance and the batch summary. Settled in [issue #12](https://github.com/DigitalWink/spec-kit-for-human-team/issues/12).
+_Avoid_: prompt (that is the whole step), call to action
 
 **Decision**:
 The interview's budget unit: one area step, closed by one answer. A push-back, a disambiguation, and the correction round are not decisions.
 _Avoid_: question, turn, prompt
+
+**Uncharged turn**:
+A turn the announced count does not cover — a push-back, a disambiguation, the negative-scope follow-up, the amendment set diff, the correction round. It is real typing, so the announcement names it, and it is marked on screen rather than only in the accounting: an uncharged turn prints **no `Step` header**, and one that continues the current step opens with the word **`Still`**. One learnable signal for "this is not a new decision".
+_Avoid_: free turn, follow-up question, extra question
 
 **Menu**:
 The step shape used when the repo yields no rule for an area but can still name a fact that says which rules are worth offering. Nothing is pre-selected, and choosing none is a valid answer. A menu candidate never carries a measured set or number. What it offers is the area's **strictness ladder**.
@@ -59,7 +71,11 @@ The candidate rules a menu step offers for one area. Shipped with the preset, ke
 _Avoid_: starter set, candidate library, project-type preset
 
 **Rung**:
-One candidate rule on a strictness ladder. A whole rule, not a clause to be combined with others — the user picks at most one. It passes the route-out table and the admission test at authoring time, before the preset ships, which is where its genericity is screened.
+One candidate rule on a strictness ladder. A whole rule, not a clause to be combined with others — the user picks at most one. It passes the route-out table and the admission test at authoring time, before the preset ships, which is where its genericity is screened. Only the first rung carries a gate question; every rung below it carries a drop delta instead.
+
+**Drop delta**:
+What a lower rung stops forbidding, said in one line — the **gate** consequence of dropping a clause, not the text difference, which the nesting already puts on screen. It ships with the rung rather than being derived per run, because a delta worded differently on two runs is the model judgment the design refuses everywhere else. It is why a menu never prints three near-identical gate questions.
+_Avoid_: diff, relaxation, weaker option
 
 **Measured set**:
 An enumeration produced from the repo and written inline into the constitution, because no consumer reads the file it came from. Three exist: the runtime dependency set, the surface verb and flag grammar, and the distribution-artifact ceiling — which is a scalar, not a list. A measured set is written as a **declarative sentence** and the obligation refers to it, so the set itself costs no obligations. Settled in [issue #10](https://github.com/DigitalWink/spec-kit-for-human-team/issues/10).
