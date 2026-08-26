@@ -15,7 +15,11 @@ A command template that loads the constitution at runtime. Ten reference it; fou
 _Avoid_: reader, client
 
 **Gate**:
-A point where a consumer can block on a constitution violation. `/plan` fills `## Constitution Check` and errors; `/analyze` rates a MUST conflict as CRITICAL.
+A point where a consumer can block on a constitution violation. `/plan` fills `## Constitution Check` and errors; `/analyze` rates a MUST conflict as CRITICAL. Preset-dependent: a preset that replaces `speckit.plan` removes the plan-time gate, and the section it leaves behind in `plan-template` is inert without the command instruction that fills it.
+
+**Gate probe**:
+The interview's one-search test for whether the plan-time gate exists on this stack: the installed `speckit.plan` command for this agent either carries a `Constitution Check` instruction or it does not. Three outcomes — present, absent, not determined — and the routing table names which. It asks nothing, blocks nothing, and changes no step. Settled in [issue #9](https://github.com/DigitalWink/spec-kit-for-human-team/issues/9).
+_Avoid_: stack check, preset detection
 
 **Tier**:
 Which consumer can observe a violation of a given rule: **plan-visible** (answerable from `plan.md` or `tasks.md`), **converge-visible** (answerable from feature-scoped source), or **human-gate**. Decides admission; never written into the constitution itself.
@@ -80,7 +84,7 @@ Refusing a candidate rule and naming where it belongs instead — a linter confi
 _Avoid_: reject, drop, exclude
 
 **Routing table**:
-The report the interview prints after writing the constitution: one line per routed-out candidate, saying what it was and where it went. Lives outside the constitution file.
+The report the interview prints after writing the constitution: one line per routed-out candidate, saying what it was and where it went. Lives outside the constitution file. It also carries the gate probe's status line, so a stack with no plan-time gate is stated rather than left silent.
 
 **Surface contract**:
 The area covering the product's own external surface — command verbs, flag names, endpoint names, output shapes, exit codes, their stability, and the documentation that ships with a change.
@@ -145,7 +149,7 @@ The preset this design ships as. One `wrap` override of `speckit.constitution`, 
 _Avoid_: guided-constitution, constitution-guided
 
 **Block supersession**:
-How the wrapper displaces core behavior: it names the core section it replaces and the sections that survive, rather than overriding core line by line. Line-level supersession depends on core's line numbers and rots on the next core edit; a named region does not.
+How the wrapper displaces core behavior: it names the core section it replaces and the sections that survive, rather than overriding core line by line. Line-level supersession depends on core's line numbers and rots on the next core edit; a named region does not. Scoped to **producing and writing** the constitution, so a lower `wrap` layer's section that is explicitly scoped to run after the write is preserved and runs post-write — without that scope, the wrapper swallows every layer beneath it. Sharpened in [issue #9](https://github.com/DigitalWink/spec-kit-for-human-team/issues/9).
 
 **Integration**:
 A supported coding agent, as a self-contained subpackage under `src/specify_cli/integrations/`.
