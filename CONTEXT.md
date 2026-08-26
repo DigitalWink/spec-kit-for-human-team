@@ -21,6 +21,10 @@ A point where a consumer can block on a constitution violation. `/plan` fills `#
 The interview's one-search test for whether the plan-time gate exists on this stack: the installed `speckit.plan` command for this agent either carries a `Constitution Check` instruction or it does not. Three outcomes — present, absent, not determined — and the routing table names which. It asks nothing, blocks nothing, and changes no step. Settled in [issue #9](https://github.com/DigitalWink/spec-kit-for-human-team/issues/9).
 _Avoid_: stack check, preset detection
 
+**Vacuous pass**:
+What every consumer does against a constitution carrying no obligations: it loads the file, extracts an empty rule set, finds nothing to conflict with, and reports zero. `/plan` fills a Constitution Check with no gates and does not error, `/analyze` rates nothing CRITICAL, `/converge` appends no task. Not an error and not a skip — `/converge`'s unfilled-template skip is a separate carve-out, and the two are indistinguishable from outside because both report nothing. It is what makes a document with no rules safe rather than merely small. Settled in [issue #13](https://github.com/DigitalWink/spec-kit-for-human-team/issues/13).
+_Avoid_: passes, no-op, silently ignored
+
 **Sync Impact Report**:
 The HTML comment at the top of the constitution recording what the last run changed — version change, bump rationale, principles and sections added, modified and removed, and what was carried forward. Producer-side bookkeeping: no enforcing consumer reads it. Its shape comes from the command, not the template, which carries none. Exactly one block exists in the file at any time; a run replaces the one it found rather than prepending another.
 _Avoid_: change log (that is the self-review's terminal artifact), impact report
@@ -105,6 +109,10 @@ _Avoid_: existing-constitution check, file check
 The constitution `specify init` writes when none exists: the resolved template copied to the live path, with a `.constitution-template.json` provenance sidecar. It is a file, not a constitution, and the amendment predicate routes it to authoring. Not the same as an authored document that happens to have been seeded by a preset.
 _Avoid_: generated constitution, empty constitution, stub
 
+**Zero-obligation constitution**:
+A constitution the interview authored that carries no MUST, MUST NOT, or SHOULD clause — because every area produced no principle, or because the principles it holds state none. A legal, ratified document: it has all four anchors, a Governance block the user confirmed, and an adoption date, so the amendment predicate routes a later run to the amendment interview. **The discriminator against a materialized scaffold is tokens, not emptiness**: the scaffold carries twenty `[ALL_CAPS]` tokens and routes to authoring, this carries none and routes to amendment. Every consumer gives it a vacuous pass, and the accounting line says so.
+_Avoid_: empty constitution (claimed by materialized scaffold), zero-principle constitution (a principle count hides the obligation count)
+
 **Touched area**:
 An area the amendment interview walks, because the user named it in step one or accepted it from the set diff. At most three per run; the rest go in the Deferred/Assumed table with a re-run pointer. Every other area is carried forward.
 
@@ -143,6 +151,10 @@ The third closing artifact. Records content admitted but unanswered, assumed, or
 
 **Write contract**:
 What the write step must emit: the template's mandatory structure, filled with the accepted rule text verbatim, plus the pipeline-fixed Governance block and footer, and nothing else. Owned by the preset that owns the write; the self-review verifies it. Settled in [issue #7](https://github.com/DigitalWink/spec-kit-for-human-team/issues/7). It governs what this flow may **emit**; it never defines what a valid constitution **is** — a ratified document may legally carry a preamble, extra sections and rationale paragraphs the contract would not have written.
+
+**Output floor**:
+The minimum the interview may produce. **There is none at the document level, and none can be added.** The floor is per-principle and already runs at draft time — it is the admission test — so a document of admitted rules is admissible by construction, and one principle is above the floor rather than near it. A document-level floor could only be reached by asking, refusing to write, or inventing content, all three forbidden; and no consumer could observe it, so it would fail the admission test's own evidence tier. The unit that would matter if one existed is **obligations, not principles**. Recorded so the question is closed rather than re-asked. Settled in [issue #13](https://github.com/DigitalWink/spec-kit-for-human-team/issues/13).
+_Avoid_: minimum viable constitution (that is the shape W1 emits, not a gate), quality bar
 
 **Self-review**:
 The one pass over the assembled draft, before the single write. It checks the interview's own assembly against the write contract — it never re-judges a rule the user accepted. On a well-formed run it changes nothing.
