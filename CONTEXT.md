@@ -64,7 +64,11 @@ A turn the announced count does not cover — a push-back, a disambiguation, the
 _Avoid_: free turn, follow-up question, extra question
 
 **Menu**:
-The step shape used when the repo yields no rule for an area but can still name a fact that says which rules are worth offering. Nothing is pre-selected, and choosing none is a valid answer. A menu candidate never carries a measured set or number. What it offers is the area's **strictness ladder**.
+The step shape used when the repo yields no rule for an area but can still name a fact that says which rules are worth offering. Nothing is pre-selected, and choosing none is a valid answer. A menu candidate never carries a measured set or number. What it offers is the area's **strictness ladder**. The naming fact is a hard gate, not a preference: with no fact the area falls through to a cold step, so a menu opens on an **early repo** and on neither of the two the design talks about most.
+
+**Early repo**:
+A project with facts but no practice — a manifest, or a workflow directory, or some source, and no convention in the area being asked about. It is the third state between greenfield and brownfield, and it is where the **menu** and the **strictness ladder** actually live. Named because the record had only two states and assigned the menu to the wrong one: a **greenfield** repo is not merely poor in facts, it has none, so it can name no fact to open a menu with and every area falls to a cold step. A mature **brownfield** repo pre-fills instead. Measured in [issue #8](https://github.com/DigitalWink/spec-kit-for-human-team/issues/8): zero menu steps on an empty repo, zero on this one, and the ladder reachable only in between.
+_Avoid_: new project, small repo, sparse repo
 
 **Strictness ladder**:
 The candidate rules a menu step offers for one area. Shipped with the preset, keyed to the area and never to a project type. Defined by nesting: **each rung forbids a strict subset of what the rung above forbids**, so the rungs are totally ordered and are shown strictest first. Rung 1 is the area's own settled rule; the ladder ends at the last rung that still forbids something, so it runs one to three rungs and is never padded. Settled in [issue #11](https://github.com/DigitalWink/spec-kit-for-human-team/issues/11).
