@@ -18,7 +18,7 @@ _Avoid_: reader, client
 A point where a consumer can block on a constitution violation. `/plan` fills `## Constitution Check` and errors; `/analyze` rates a MUST conflict as CRITICAL. Preset-dependent: a preset that replaces `speckit.plan` removes the plan-time gate, and the section it leaves behind in `plan-template` is inert without the command instruction that fills it.
 
 **Gate probe**:
-The interview's one-search test for whether the plan-time gate exists on this stack: the installed `speckit.plan` command for this agent either carries a `Constitution Check` instruction or it does not. Three outcomes — present, absent, not determined — and the routing table names which. It asks nothing, blocks nothing, and changes no step. Settled in [issue #9](https://github.com/DigitalWink/spec-kit-for-human-team/issues/9).
+The interview's one-search test for whether the plan-time gate exists on this stack: the installed `speckit.plan` command for this agent either carries a `Constitution Check` instruction or it does not. Three outcomes — present, absent, not determined — and the routing table names which. It asks nothing, blocks nothing, and changes no step. It is the scan's **last** spend, charged to its own row and its own progress line: it is the one measurement that changes no number, only a conditional paragraph, so it must never compete with trigger resolution. Settled in [issue #9](https://github.com/DigitalWink/spec-kit-for-human-team/issues/9); given its row in [issue #15](https://github.com/DigitalWink/spec-kit-for-human-team/issues/15).
 _Avoid_: stack check, preset detection
 
 **Vacuous pass**:
@@ -105,7 +105,7 @@ The three tests that decide whether a candidate rule becomes a principle — **g
 _Avoid_: quality check, filter
 
 **Candidate rule**:
-A statement offered for the constitution, before the admission test judges it.
+A statement offered for the constitution, before the admission test judges it. Always a **rule**, never a quotation of the repo: a candidate drawn from repo text is drafted into a rule first and shows the quote beneath it as provenance, because a descriptive sentence carries no obligation and cannot pass the admission test. What is on screen is what gets written.
 
 **Route-out**:
 Refusing a candidate rule and naming where it belongs instead — a linter config, `AGENTS.md`, an ADR, the spec, or nothing.
@@ -134,10 +134,10 @@ A constitution the interview authored that carries no MUST, MUST NOT, or SHOULD 
 _Avoid_: empty constitution (claimed by materialized scaffold), zero-principle constitution (a principle count hides the obligation count)
 
 **Touched area**:
-An area the amendment interview walks, because the user named it in step one or accepted it from the set diff. At most three per run; the rest go in the Deferred/Assumed table with a re-run pointer. Every other area is carried forward.
+An area the amendment interview walks, because the user named it in step one or accepted it from the set diff. At most three per run; the rest go in the Deferred/Assumed table with a re-run pointer. Every other area is carried forward. Its principle is **replaced, not edited** — re-drafted through the route-out table, the admission test, the obligation quota and the short-name default — so the step says so out loud, names where the clauses that did not survive went, and discloses the rename. The amendment's promise that nothing is rewritten unless the user names it is a promise about every *other* area.
 
 **Set diff**:
-The re-measurement of all three measured sets against what the constitution currently names, shown as rejectable candidates in step one's follow-up. It costs zero decisions. It exists because provenance stays out of the document, so measuring again is the only way to see drift.
+The re-measurement of all three measured sets against what the constitution currently names, shown as rejectable candidates in step one's follow-up. It costs zero decisions. It exists because provenance stays out of the document, so measuring again is the only way to see drift. It is two-sided only over sentences the interview itself wrote: what a document *names* is read from the shipped stem, never extracted from prose, so on any document the flow did not write — every document on its first amendment — the diff is **one-sided** and says which of the two reasons applies, could-not-be-read or not-stated.
 
 **Carried-forward principle**:
 A principle in an area the amendment did not touch. A third state beyond drafted and user-typed — ratified in an earlier run, so every self-review check treats it as user-typed and log-only. Reported as one summary line, never one row per principle.
@@ -147,8 +147,12 @@ _Avoid_: untouched principle, existing principle
 The amendment interview's last step, and its counterpart to the Governance confirmation. The flow classifies MAJOR / MINOR / PATCH mechanically from the obligation diff, and the user confirms. Charged as one decision, because the residue — whether an edit clarified a rule or redefined it — is a judgment about intent the repo cannot see.
 
 **Announced count**:
-The exact number of decisions the interview will cost, stated before the first question. Knowable because the scan completes first. Names what it excludes, because follow-up turns are real typing the number does not cover. Settled in [issue #2](https://github.com/DigitalWink/spec-kit-for-human-team/issues/2). The **amendment interview** is the one flow that cannot know it in advance, because the count depends on the user's first answer — so it announces a ceiling, then the exact count once that answer closes. Both name the same exclusions.
+The exact number of decisions the interview will cost, stated before the first question. Knowable because the scan completes first. Names what it excludes, because follow-up turns are real typing the number does not cover. Settled in [issue #2](https://github.com/DigitalWink/spec-kit-for-human-team/issues/2). The **amendment interview** is the one flow that cannot know it in advance, because the count depends on the user's first answer — so it announces a ceiling, then the exact count once that answer closes. Both name the same exclusions. **An argument clause never changes it**: a count that moved with the arguments would depend on parsing prose, and the number is the interview's central promise.
 _Avoid_: budget, cap, estimate
+
+**Argument clause**:
+One sentence or line of `$ARGUMENTS`, and the unit the command's arguments are attached by. A clause **pre-fills** the one area step whose **gate question** it answers — it never removes a step, never fires a conditional, and never changes the announced count. It is a pre-supplied answer the user still confirms in the walk, not a bypass of it, and it never routes back into core's `## Outline`. A clause that answers no gate question is not written from and not silently dropped: it lands one Deferred/Assumed row. A pre-fill drawn from the user's own arguments is not anchoring, so it is legal even on the two steps the design otherwise keeps cold. Settled in [issue #15](https://github.com/DigitalWink/spec-kit-for-human-team/issues/15).
+_Avoid_: argument, parameter, flag, prompt input
 
 **Walk order**:
 The fixed sequence of areas. Derived from one-way feeds — an area whose answer can invalidate an earlier rule runs before it — not from impact or attention.
@@ -164,7 +168,7 @@ _Avoid_: rule, clause, instruction
 The per-area ceiling on obligations: three for an always-ask area, four for irreversible operations, two for a fired conditional. Enforced at draft time, before the user sees the rule. A rule the user typed is exempt.
 
 **Scan budget**:
-What the pre-walk scan may spend: forty file reads and twelve searches, one pass. Triggers are resolved first, because an unevaluated trigger changes the announced count.
+What the pre-walk scan may spend: forty file reads and thirteen searches, one pass, divided across five rows whose numbers are derived from the procedures each row names rather than carried. Spending runs forward only: an earlier row's unspent budget rolls into a later one, never the reverse. Triggers are resolved first, because an unevaluated trigger changes the announced count; the **gate probe** is last, because it changes no number. Re-derived in [issue #15](https://github.com/DigitalWink/spec-kit-for-human-team/issues/15), which found the earlier twelve was the sum of a table with one row mispriced and one row missing.
 
 **Deferred/Assumed table**:
 The third closing artifact. Records content admitted but unanswered, assumed, or dropped for budget — as against the routing table, which records content **refused**, and the change log, which records content **changed**. Every default that left the document short of what the user might have wanted lands here, reversible in the correction round.
