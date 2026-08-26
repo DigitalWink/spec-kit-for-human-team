@@ -135,7 +135,17 @@ _Avoid_: report, diff, summary
 ### Packaging
 
 **Preset**:
-A bundled layer that overrides or wraps core command templates without modifying them. `presets/lean` and `presets/constitution-sync` are the working precedents.
+A bundled layer that overrides or wraps core command templates without modifying them. `presets/lean` and `presets/constitution-sync` are the working precedents. A layer declares one of four strategies per template — `replace` (the default), `prepend`, `append`, `wrap` — in its `strategy` field. `replaces:` is not a schema field and nothing reads it.
+
+**Bundled preset**:
+A preset shipped with Spec Kit rather than downloaded. Three mechanical facts, not one: a directory in `presets/<id>/`, an entry in `presets/catalog.json` with `"bundled": true`, and a `pyproject.toml` force-include line. The alternative is a community catalogue entry, which needs an external repository and a release archive and is discovery-only by default.
+
+**`constitution-interview`**:
+The preset this design ships as. One `wrap` override of `speckit.constitution`, bundled. Settled in [issue #4](https://github.com/DigitalWink/spec-kit-for-human-team/issues/4).
+_Avoid_: guided-constitution, constitution-guided
+
+**Block supersession**:
+How the wrapper displaces core behavior: it names the core section it replaces and the sections that survive, rather than overriding core line by line. Line-level supersession depends on core's line numbers and rots on the next core edit; a named region does not.
 
 **Integration**:
 A supported coding agent, as a self-contained subpackage under `src/specify_cli/integrations/`.
