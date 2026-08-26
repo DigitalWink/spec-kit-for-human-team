@@ -40,7 +40,14 @@ The interview's budget unit: one area step, closed by one answer. A push-back, a
 _Avoid_: question, turn, prompt
 
 **Menu**:
-The step shape used when the repo yields no rule for an area but can still name a fact that says which rules are worth offering. Nothing is pre-selected, and choosing none is a valid answer. A menu candidate never carries a measured set or number.
+The step shape used when the repo yields no rule for an area but can still name a fact that says which rules are worth offering. Nothing is pre-selected, and choosing none is a valid answer. A menu candidate never carries a measured set or number. What it offers is the area's **strictness ladder**.
+
+**Strictness ladder**:
+The candidate rules a menu step offers for one area. Shipped with the preset, keyed to the area and never to a project type. Defined by nesting: **each rung forbids a strict subset of what the rung above forbids**, so the rungs are totally ordered and are shown strictest first. Rung 1 is the area's own settled rule; the ladder ends at the last rung that still forbids something, so it runs one to three rungs and is never padded. Settled in [issue #11](https://github.com/DigitalWink/spec-kit-for-human-team/issues/11).
+_Avoid_: starter set, candidate library, project-type preset
+
+**Rung**:
+One candidate rule on a strictness ladder. A whole rule, not a clause to be combined with others — the user picks at most one. It passes the route-out table and the admission test at authoring time, before the preset ships, which is where its genericity is screened.
 
 **Measured set**:
 An enumeration produced from the repo and written inline into the constitution, because no consumer reads the file it came from. Three exist: the runtime dependency set, the surface verb and flag grammar, and the distribution-artifact ceiling — which is a scalar, not a list. A measured set is written as a **declarative sentence** and the obligation refers to it, so the set itself costs no obligations. Settled in [issue #10](https://github.com/DigitalWink/spec-kit-for-human-team/issues/10).
